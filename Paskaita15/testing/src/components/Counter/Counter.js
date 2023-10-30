@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-export default function Counter({ startingNumber }) {
+export default function Counter({ startingNumber = 0 }) {
+  if (startingNumber === null) {
+    startingNumber = 0;
+  }
+
   const [counter, setCounter] = useState(startingNumber);
 
   function incrementHandler() {
