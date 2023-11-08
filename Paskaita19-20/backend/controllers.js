@@ -13,16 +13,27 @@ export async function register(req, res) {
   if (!username || !password) {
     return res.status(400).json({ message: "username and password required" });
   }
-  const hashedPassword = await bcrypt.hash(password, 10);
 
-  const newUser = new User({
-    username,
-    password: hashedPassword,
-  });
+  try {
+    const user = await User.findOne({ username });
 
-  await newUser.save();
+    if (user) {
+      return res.status(400).json({ message: "user already exists" });
+    }
 
-  res.json({ user: newUser });
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({
+      username,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+
+    res.json({ user: newUser });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
 }
 
 export async function login(req, res) {
