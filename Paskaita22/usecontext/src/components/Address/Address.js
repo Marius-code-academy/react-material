@@ -3,7 +3,6 @@ import { userContext } from "../../App";
 
 export default function Address() {
   const { user, setUser } = useContext(userContext);
-  console.log(user);
 
   function handleChange() {
     setUser((prev) => {

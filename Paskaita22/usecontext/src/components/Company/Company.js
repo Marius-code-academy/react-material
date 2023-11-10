@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { userContext } from "../../App";
 
 export default function Company() {
-  const user = useContext(userContext);
+  const { user } = useContext(userContext);
 
   return (
     <div>
